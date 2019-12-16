@@ -25,7 +25,9 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
   let city = req.body.city;
+  // What’s happening is OpenWeatherMap actually defaults its temperature to Kelvin. So we need to add another query parameter. If you use Celsius you’d add: units=metric and if you use Fahrenheit you’d use units=imperial.
   let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
+
   request(url, function (err, response, body) {
     if (err) {
       res.render('index', { weather: null, error: 'Error, please try again' });
